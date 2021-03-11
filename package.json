@@ -28,6 +28,7 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@monocdk-experiment/assert": "^1.92.0",
     "monocdk": "^1.92.0",
     "source-map-support": "^0.5.16"
   }

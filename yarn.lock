@@ -563,6 +563,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@monocdk-experiment/assert@^1.92.0":
+  version "1.92.0"
+  resolved "https://registry.yarnpkg.com/@monocdk-experiment/assert/-/assert-1.92.0.tgz#3d9b773df4302e927372d01279df023b4c97a6a7"
+  integrity sha512-Z9P504KWeLj+4+rsWe/aba8Qw/MpdJtVROBU7ybAozl5BjvDKvd0kEOxO2txFIavN24otaKBdNx61icaMmWNPw==
+  dependencies:
+    "@aws-cdk/cloudformation-diff" "1.92.0"
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.2.tgz#858f5c4b48d80778fde4b9d541f27edc0d56488b"

@@ -1,13 +1,13 @@
-import { expect as expectCDK, matchTemplate, MatchStyle } from '@aws-cdk/assert';
-import * as cdk from '@aws-cdk/core';
-import * as ShineFox from '../lib/shine-fox-stack';
+import { haveResource } from '@monocdk-experiment/assert';
+import { expect as expectCDK, matchTemplate, MatchStyle } from '@monocdk-experiment/assert';
+import { App } from 'monocdk';
+import { ShineFoxStack } from '../lib/shine-fox-stack';
 
-test('Empty Stack', () => {
-    const app = new cdk.App();
+test('Has Lambda', () => {
+    const app = new App();
     // WHEN
-    const stack = new ShineFox.ShineFoxStack(app, 'MyTestStack');
+    const stack = new ShineFoxStack(app, 'MyTestStack');
+
     // THEN
-    expectCDK(stack).to(matchTemplate({
-      "Resources": {}
-    }, MatchStyle.EXACT))
+    expectCDK(stack).to(haveResource('AWS::Lambda::Function'))
 });

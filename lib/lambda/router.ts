@@ -47,7 +47,7 @@ export const route = async (event:APIGatewayProxyEventV2) => {
         case '/getAllCounters':
             if(method === 'GET'){
                 let counter1 = {id: 'a24f6c86-f4f5-4d55-9d7e-9d2a7f7cffc0', name:'push-ups', count: 10}
-                let counter2 = {id: '8a01eaac-7855-460a-8137-84f50c6608bd', name:'sqauts', count: 5}
+                let counter2 = { id: '8a01eaac-7855-460a-8137-84f50c6608bd', name: 'squats', count: 5 }
                 let counters = [counter1,counter2]
                 return createOkStatus(counters)
             } else {

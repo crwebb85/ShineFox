@@ -9,10 +9,10 @@ describe('Unit test for app handler', () => {
                 a: "1"
             },
             requestContext: {
-                http: {
-                method: "POST",
+                  http: {
+                      method: "POST",
+                  }
             }
-        }
         } as any
 
         const context = undefined as any as Context

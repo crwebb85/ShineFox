@@ -58,7 +58,7 @@ export const route = async (event:APIGatewayProxyEventV2) => {
     }
 }
 
-function createOkStatus(body:any) {
+function createOkStatus(body: any) {
     return {
         statusCode: 200,
         body: JSON.stringify(body),

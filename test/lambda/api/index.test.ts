@@ -1,7 +1,7 @@
 import { APIGatewayProxyEventV2, Context, Callback } from "aws-lambda";
 import { indexHandler } from  '../../../lib/lambda/api/index'
 
-describe('Unit test for app handler', function () {
+describe('Unit test for app handler', () => {
     it('Verifies 404 response for invalid route', async () => {
         const event: APIGatewayProxyEventV2 = {
             rawPath: '/',
@@ -26,4 +26,3 @@ describe('Unit test for app handler', function () {
         expect(result.statusCode).toEqual(404);
     });
 });
-

@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, APIGatewayProxyStructuredResultV2, Context, Handler } from 'aws-lambda';
-import {route} from '../router'
+import { route } from '../router'
 
 
 
@@ -18,7 +18,6 @@ export const indexHandler: Handler<APIGatewayProxyEventV2, APIGatewayProxyResult
         }; 
     }
 }
-
 
 
 

@@ -4,7 +4,7 @@ import { route } from '../router'
 
 
 export const indexHandler: Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2> = async (event, context) => {
-    try{
+    try {
         return route(event)
     } catch (e) {
         console.error(`${e.message}: ${e.stack}`);
@@ -18,6 +18,5 @@ export const indexHandler: Handler<APIGatewayProxyEventV2, APIGatewayProxyResult
         }; 
     }
 }
-
 
 

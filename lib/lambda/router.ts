@@ -7,7 +7,6 @@ export const route = async (event: APIGatewayProxyEventV2) => {
     const routeKey = event.routeKey
     const parameters = event.queryStringParameters as any
     let counter: Counter = {} as Counter
-    console.log(routeKey)
     switch (routeKey) {
         case 'POST /insertCounter':
             counter = {

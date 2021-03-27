@@ -1,6 +1,6 @@
 export type Counter = {
-    idCounter: String
-    idGroup: String
-    name: String
+    idCounter: string
+    idGroup: string
+    name: string
     count: number
 }

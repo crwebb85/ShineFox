@@ -1,4 +1,4 @@
 export type Group = {
-    idGroup: String
-    name: String
+    idGroup: string
+    name: string
 }

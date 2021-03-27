@@ -6,7 +6,6 @@ let groups: Group[] = []
 
 export async function getCounter(idCounter: String): Promise<Counter> {
     let counter = counters.find(counter => counter.idCounter === idCounter) as Counter
-    console.log(counter)
     return counter
 }
 

@@ -1,15 +1,14 @@
-import { APIGatewayProxyEventV2, Context, Callback } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyEventQueryStringParameters } from "aws-lambda";
 import { route } from '../../lib/lambda/router'
 import { Counter } from '../../lib/lambda/db/Counter'
 import { Group } from '../../lib/lambda/db/Group'
 import * as repository from '../../lib/lambda/repository'
-import { APIGatewayProxyEventQueryStringParameters } from "aws-lambda";
 
 jest.mock('../../lib/lambda/repository')
 const mockedRepository = repository as jest.Mocked<typeof repository>
 
 test('Unit test route empty insertCounter', async () => {
-    const idGroup: string = 'f5c2ff57-b5d2-414c-ac1f-0db657d6dd65'
+    const idGroup = 'f5c2ff57-b5d2-414c-ac1f-0db657d6dd65'
     const defaultName = ''
     const defaultCount = 0
 

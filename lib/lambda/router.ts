@@ -4,8 +4,6 @@ import { Counter } from './db/Counter'
 import { Group } from './db/Group'
 
 export const route = async (event: APIGatewayProxyEventV2) => {
-    const path = event.rawPath
-    const method = event.requestContext.http.method
     const routeKey = event.routeKey
     const parameters = event.queryStringParameters as any
     let counter: Counter = {} as Counter

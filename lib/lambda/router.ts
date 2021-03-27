@@ -1,64 +1,55 @@
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Handler} from 'aws-lambda';
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2, Handler } from 'aws-lambda';
+import * as repository from './repository'
+import { Counter } from './db/Counter'
+import { Group } from './db/Group'
 
-const status404 = {
-    statusCode: 404,
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-    }
-}
-
-const status405 = {
-    statusCode: 405,
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-    }
-}
-
-export const route = async (event:APIGatewayProxyEventV2) => {
+export const route = async (event: APIGatewayProxyEventV2) => {
     const path = event.rawPath
     const method = event.requestContext.http.method
-    
-    switch (path){
-        case '/insertCounter':
-            if(method === 'POST'){
-                let counter = {id: 'a24f6c86-f4f5-4d55-9d7e-9d2a7f7cffc0', name:'', count: 0}
-                return createOkStatus(counter)
-            } else {
-                return status405;
+    const routeKey = event.routeKey
+    const parameters = event.queryStringParameters as any
+    let counter: Counter = {} as Counter
+    console.log(routeKey)
+    switch (routeKey) {
+        case 'POST /insertCounter':
+            counter = {
+                idCounter: parameters.idCounter || '',
+                idGroup: parameters.idGroup,
+                name: parameters.name || '',
+                count: (parameters.count) ? Number.parseInt(parameters.count) : 0
             }
-        case '/updateCounter':
-            if(method === 'POST'){
-                let counter = {id: 'a24f6c86-f4f5-4d55-9d7e-9d2a7f7cffc0', name:'push-ups', count: 5}
-                return createOkStatus(counter) 
-            } else {
-                return status405;
+            return createOkStatus(await repository.insertCounter(counter))
+        case 'POST /updateCounter':
+            counter = await repository.getCounter(parameters.idCounter)
+            if (parameters.hasOwnProperty('name')) {
+                counter.name = parameters.name
             }
-        case '/incrementCounter':
-            if(method === 'POST'){
-                let counter = {id: 'a24f6c86-f4f5-4d55-9d7e-9d2a7f7cffc0', name:'push-ups', count: 10}
-                return createOkStatus(counter)
-            } else {
-                return status405;
+            if (parameters.hasOwnProperty('count')) {
+                counter.count = parameters.count
             }
-        case '/getAllCounters':
-            if(method === 'GET'){
-                let counter1 = {id: 'a24f6c86-f4f5-4d55-9d7e-9d2a7f7cffc0', name:'push-ups', count: 10}
-                let counter2 = {id: '8a01eaac-7855-460a-8137-84f50c6608bd', name:'sqauts', count: 5}
-                let counters = [counter1,counter2]
-                return createOkStatus(counters)
-            } else {
-                return status405;
-            }
+            return createOkStatus(await repository.updateCounter(counter))
+        case 'POST /incrementCounter':
+            let idCounter = parameters.idCounter
+            let increment = Number.parseInt(parameters.increment)
+            counter = await repository.getCounter(idCounter)
+            counter.count += increment
+            return createOkStatus(await repository.updateCounter(counter))
+        case 'GET /getAllCounters':
+            let idGroup = parameters.idGroup
+            return createOkStatus(await repository.getCounter(idGroup))
         default:
-            return status404; 
+            return {
+                statusCode: 404,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                }
+            }
     }
 }
 
-function createOkStatus(body:any) {
+function createOkStatus(body: any) {
     return {
         statusCode: 200,
         body: JSON.stringify(body),
